@@ -14,7 +14,7 @@ const store = ref({})
 async function load() {
   //示例
   // const OPENAI_API_KEY = "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"; // 用于测试的key
-  const OPENAI_API_KEY = "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"; // 我自己的key
+  const OPENAI_API_KEY = "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"; // 我自己的key
 
   try {
     const prompt = chatValue.value.trim(); // 输入的内容
