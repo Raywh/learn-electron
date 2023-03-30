@@ -80,10 +80,11 @@ async function load() {
       <div class="right">
         <!-- 一个多行的input，绑定输入chatValue，一个button 提交，一个div为输出的内容 -->
         <div class="box">
-          <a-textarea v-model:value="context.content" placeholder="请输入文本内容" :autoSize="{ minRows: 3 }" allow-clear showCount :readonly="loading"
+          <a-textarea v-model:value="context.content" placeholder="请输入文本内容" :autoSize="{ minRows: 3 }" allow-clear showCount :disabled="loading"
             class="input-box" />
           <a-button :disabled="loading" :loading="loading" class="submit-btn" @click="load">查 询</a-button>
         </div>
+        <div v-show="loading">loading...</div>
         <div class="content">{{ chatResult }}</div>
       </div>
     </div>
