@@ -18,6 +18,7 @@ async function load() {
   const OPENAI_API_KEY = ""; // 我自己的key
   console.log(context)
   // 需要深拷贝context
+  message.info('加载中...')
   const val = JSON.parse(JSON.stringify(context))
   history.value.push(val)
   console.log(history.value)
@@ -59,7 +60,9 @@ async function load() {
     console.log(error)
     const msg = JSON.stringify(error)
     message.info(msg)
-    load()
+    if (history.value.length === 1) load()
+    loading.value = false;
+
 
   }
 }
@@ -77,8 +80,8 @@ async function load() {
       <div class="right">
         <!-- 一个多行的input，绑定输入chatValue，一个button 提交，一个div为输出的内容 -->
         <div class="box">
-          <a-textarea v-model:value="context.content" placeholder="请输入文本内容" :autoSize="{ minRows: 3 }" allow-clear showCount
-            class="input-box" @pressEnter="load" />
+          <a-textarea v-model:value="context.content" placeholder="请输入文本内容" :autoSize="{ minRows: 3 }" allow-clear showCount :readonly="loading"
+            class="input-box" />
           <a-button :disabled="loading" :loading="loading" class="submit-btn" @click="load">查 询</a-button>
         </div>
         <div class="content">{{ chatResult }}</div>
