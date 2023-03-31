@@ -14,7 +14,6 @@ const history = ref([])// 定义上下文历史记录
 // 发送消息
 async function load() {
   //示例
-  // const OPENAI_API_KEY = "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"; // 用于测试的key
   const OPENAI_API_KEY = ""; // 我自己的key
   console.log(context)
   // 需要深拷贝context
@@ -43,7 +42,7 @@ async function load() {
       }),
     });
     const response = await res.json();
-    console.log(response);
+
     store.value = {
       title: prompt,
       description: response.choices[0].message.content,
@@ -52,18 +51,14 @@ async function load() {
     history.value.push(response.choices[0].message)
 
     const result = response.choices[0].message.content;
-    console.log(result);
     chatResult.value = result;
     loading.value = false;
-    console.log(chatValue)
   } catch (error) {
-    console.log(error)
     const msg = JSON.stringify(error)
     message.info(msg)
-    if (history.value.length === 1) load()
+    message.info('加载失败,请重试!')
+    if (history.value.length === 1) await load()
     loading.value = false;
-
-
   }
 }
 // load()
@@ -82,8 +77,11 @@ async function load() {
         <div class="box">
           <a-textarea v-model:value="context.content" placeholder="请输入文本内容" :autoSize="{ minRows: 3 }" allow-clear showCount :disabled="loading"
             class="input-box" />
-          <a-button :disabled="loading" :loading="loading" class="submit-btn" @click="load">查 询</a-button>
+
+        <a-button :disabled="loading" :loading="loading" class="submit-btn" @click="load">查 询</a-button>
+
         </div>
+
         <div v-show="loading">loading...</div>
         <div class="content">{{ chatResult }}</div>
       </div>
@@ -100,19 +98,21 @@ async function load() {
 .left {
   flex: 1;
   min-width: 600px;
-  max-height: 100vh;
+  max-height: 90vh;
   overflow-y: auto;
+  margin-right: 15px;
 }
 
 .right {
-  width: 500px;
-  margin-left: 20px;
+  /* width: 400px; */
+  /* margin-left: 10px; */
 }
 
 .box {
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
 }
 
 .input-box {
@@ -126,5 +126,9 @@ async function load() {
 
 .content {
   white-space: pre-line;
+  max-height: 80vh;
+  overflow-y: auto;
+  margin-top: 10px;
+  margin: 10px;
 }
 </style>

@@ -12,7 +12,7 @@ window.electronAPI.sendMessage('Hello from App.vue!');
 </script>
 
 <template>
-  <div>
+  <!-- <div>
     <a href="https://vitejs.dev" target="_blank">
       <img src="/vite.svg" class="logo" alt="Vite logo" />
     </a>
@@ -22,7 +22,7 @@ window.electronAPI.sendMessage('Hello from App.vue!');
   </div>
   <router-link to="/">HelloWorld</router-link> |
   <router-link to="/todo">TodoList</router-link> |
-  <router-link to="/chat">ChatGpt</router-link>
+  <router-link to="/chat">ChatGpt</router-link> -->
 
   <router-view />
 </template>

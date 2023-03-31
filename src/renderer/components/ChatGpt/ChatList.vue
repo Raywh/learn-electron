@@ -43,13 +43,11 @@ const data = ref([
 watch(
   () => props.data,
   (obj) => {
-    console.log(obj)
     addTodo(obj)
   }
 )
 
 const addTodo = (obj: any) => {
-  console.log('addTodo');
   data.value.push(obj)
 };
 </script>
